@@ -14,16 +14,10 @@ import java.io.IOException;
 @Component
 public class JwtEntryPoint implements AuthenticationEntryPoint {
 
-    // Attributes
     private final static Logger logger = LoggerFactory.getLogger(JwtEntryPoint.class);
-
-
-    // Methods
-
     @Override
     public void commence(HttpServletRequest req, HttpServletResponse res, AuthenticationException e) throws IOException, ServletException {
-        logger.error("Fail en el método commence");
-        res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "No autorizado");
+        logger.error("fail en el método commence");
+        res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "no autorizado");
     }
-
 }

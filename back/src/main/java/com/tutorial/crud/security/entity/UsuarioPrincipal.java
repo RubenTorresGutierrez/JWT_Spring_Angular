@@ -1,23 +1,13 @@
 package com.tutorial.crud.security.entity;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.validation.constraints.NotNull;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class UsuarioPrincipal implements UserDetails {
-
-    // Attributes
     private String nombre;
     private String nombreUsuario;
     private String email;
@@ -32,20 +22,11 @@ public class UsuarioPrincipal implements UserDetails {
         this.authorities = authorities;
     }
 
-
-    // Methods
-
     public static UsuarioPrincipal build(Usuario usuario){
-
         List<GrantedAuthority> authorities =
-                usuario.getRoles().stream().map(rol -> new SimpleGrantedAuthority(rol
-                        .getRolNombre().name())).collect(Collectors.toList());
+                usuario.getRoles().stream().map(rol -> new SimpleGrantedAuthority(rol.getRolNombre().name())).collect(Collectors.toList());
         return new UsuarioPrincipal(usuario.getNombre(), usuario.getNombreUsuario(), usuario.getEmail(), usuario.getPassword(), authorities);
-
     }
-
-
-    // Getters
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -89,5 +70,4 @@ public class UsuarioPrincipal implements UserDetails {
     public String getEmail() {
         return email;
     }
-
 }

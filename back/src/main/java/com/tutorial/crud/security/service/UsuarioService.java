@@ -11,13 +11,8 @@ import java.util.Optional;
 @Service
 @Transactional
 public class UsuarioService {
-
-    // Attributes
     @Autowired
     UsuarioRepository usuarioRepository;
-
-
-    // Methods
 
     public Optional<Usuario> getByNombreUsuario(String nombreUsuario){
         return usuarioRepository.findByNombreUsuario(nombreUsuario);
@@ -31,8 +26,7 @@ public class UsuarioService {
         return usuarioRepository.existsByEmail(email);
     }
 
-    public void save(Usuario usuario){
+    public void save(Usuario usuario) {
         usuarioRepository.save(usuario);
     }
-
 }
