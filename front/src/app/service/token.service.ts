@@ -68,4 +68,10 @@ export class TokenService {
 
   }
 
+  get IsLogged(): boolean{
+    if(this.getToken())
+      return true;
+    return false;
+  }
+
 }
