@@ -17,24 +17,22 @@ import java.io.IOException;
 
 public class JwtTokenFilter extends OncePerRequestFilter {
 
-    // Attributes
     private final static Logger logger = LoggerFactory.getLogger(JwtTokenFilter.class);
+
     @Autowired
     JwtProvider jwtProvider;
+
+    @Autowired
     UserDetailsServiceImpl userDetailsService;
-
-
-    // Methods
 
     @Override
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain filterChain) throws ServletException, IOException {
         try{
             String token = getToken(req);
-            if (token != null && jwtProvider.validateToken(token)) {
+            if(token != null && jwtProvider.validateToken(token)){
                 String nombreUsuario = jwtProvider.getNombreUsuarioFromToken(token);
                 UserDetails userDetails = userDetailsService.loadUserByUsername(nombreUsuario);
-                UsernamePasswordAuthenticationToken auth =
-                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
         }catch (Exception e){
@@ -48,6 +46,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         if(header != null && header.startsWith("Bearer"))
             return header.replace("Bearer ", "");
         return null;
-    }
 
+    }
 }

@@ -7,33 +7,22 @@ import java.util.Set;
 
 @Entity
 public class Usuario {
-
-    // Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @NotNull //Este not null es solo para la clase, no para la db
+    @NotNull
     private String nombre;
-
     @NotNull
     @Column(unique = true)
     private String nombreUsuario;
-
     @NotNull
     private String email;
-
     @NotNull
     private String password;
-
     @NotNull
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(name = "usuario_id"),
-    inverseJoinColumns = @JoinColumn(name = "rol_id"))
+    @JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"))
     private Set<Rol> roles = new HashSet<>();
-
-    public Usuario() {
-    }
 
     public Usuario(String nombre, String nombreUsuario, String email, String password) {
         this.nombre = nombre;
@@ -42,8 +31,9 @@ public class Usuario {
         this.password = password;
     }
 
+    public Usuario() {
 
-    // Getters & Setters
+    }
 
     public Integer getId() {
         return id;
@@ -92,5 +82,4 @@ public class Usuario {
     public void setRoles(Set<Rol> roles) {
         this.roles = roles;
     }
-
 }
